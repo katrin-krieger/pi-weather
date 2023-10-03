@@ -14,10 +14,12 @@ import sys
 import time
 from dotenv import load_dotenv, dotenv_values
 import paho.mqtt.publish as publish
+import json
+
 
 
 sys.path.append("../")
-from DFRobot_DHT20 import *
+#rom DFRobot_DHT20 import *
 
 IIC_MODE         = 0x01            # default use IIC1
 IIC_ADDRESS      = 0x38           # default i2c device address
@@ -47,9 +49,11 @@ MQTT_PATH= MQTT_TOPIC + "/" + MQTT_SUBTOPIC
 
 while True:
   #Read ambient temperature and relative humidity and print them to terminal
+  MQTT_MSG=json.dumps({"temperature": dht20.get_temperature(), "humidity": dht20.get_humidity()})
+  
   print("temperature::%f C"%dht20.get_temperature())
   print("humidity::%f RH"%dht20.get_humidity())
-  publish.single(MQTT_PATH, {"temperature": dht20.get_temperature(), "humidity": dht20.get_humidity()}, hostname=MQTT_HOST)
+  publish.single(MQTT_PATH, MQTT_MSG , hostname=MQTT_HOST)
  
 
  
