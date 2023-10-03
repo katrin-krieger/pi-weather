@@ -12,6 +12,10 @@
 """
 import sys
 import time
+from dotenv import load_dotenv, dotenv_values
+import paho.mqtt.publish as publish
+
+
 sys.path.append("../")
 from DFRobot_DHT20 import *
 
@@ -27,8 +31,26 @@ dht20 = DFRobot_DHT20(IIC_MODE ,IIC_ADDRESS)
 """
 dht20.begin()
 
+"""
+setup MQTT connection
+"""
+
+load_dotenv()
+config = dotenv_values(".env") 
+
+MQTT_HOST = config['MQTT_HOST']
+MQTT_TOPIC = config['MQTT_TOPIC']
+MQTT_SUBTOPIC = config['MQTT_SUBTOPIC']
+
+MQTT_PATH= MQTT_TOPIC + "/" + MQTT_SUBTOPIC
+
+
 while True:
   #Read ambient temperature and relative humidity and print them to terminal
   print("temperature::%f C"%dht20.get_temperature())
   print("humidity::%f RH"%dht20.get_humidity())
-  time.sleep(1)
+  publish.single(MQTT_PATH, {"temperature": dht20.get_temperature(), "humidity": dht20.get_humidity()}, hostname=MQTT_HOST)
+ 
+
+ 
+  time.sleep(30)
