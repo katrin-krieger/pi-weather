@@ -19,7 +19,7 @@ import json
 
 
 sys.path.append("../")
-#rom DFRobot_DHT20 import *
+from DFRobot_DHT20 import *
 
 IIC_MODE         = 0x01            # default use IIC1
 IIC_ADDRESS      = 0x38           # default i2c device address
