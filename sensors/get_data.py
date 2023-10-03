@@ -14,6 +14,7 @@ import sys
 import time
 from dotenv import load_dotenv, dotenv_values
 import paho.mqtt.publish as publish
+from paho.mqtt import client as mqtt_client
 import json
 
 
@@ -41,20 +42,59 @@ load_dotenv()
 config = dotenv_values(".env") 
 
 MQTT_HOST = config['MQTT_HOST']
+MQTT_PORT = config['MQTT_PORT']
+MQTT_CLIENT = config['MQTT_CLIENT']
 MQTT_TOPIC = config['MQTT_TOPIC']
 MQTT_SUBTOPIC = config['MQTT_SUBTOPIC']
+MQTT_USERNAME = config['MQTT_USERNAME']
+MQTT_PASSWORD = config['MQTT_PASSWORD']
+
 
 MQTT_PATH= MQTT_TOPIC + "/" + MQTT_SUBTOPIC
 
+def connect_mqtt():
+    def on_connect(client, userdata, flags, rc):
+        if rc == 0:
+            print("Connected to MQTT Broker!")
+        else:
+            print("Failed to connect, return code %d\n", rc)
+    # Set Connecting Client ID
+    client = mqtt_client.Client(MQTT_CLIENT)
+    client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
+    client.on_connect = on_connect
+    client.connect(MQTT_HOST, MQTT_PORT)
+    return client
 
-while True:
-  #Read ambient temperature and relative humidity and print them to terminal
-  MQTT_MSG=json.dumps({"temperature": dht20.get_temperature(), "humidity": dht20.get_humidity()})
+def run():
+    client = connect_mqtt()
+    client.loop_start()
+    publish(client)
+    client.loop_stop()
+
+def publish(client):
+    while True:
+        time.sleep(30)
+        MQTT_MSG=json.dumps({"temperature": dht20.get_temperature(), "humidity": dht20.get_humidity()})
+        result = client.publish(MQTT_PATH, MQTT_MSG)
+        # result: [0, 1]
+        status = result[0]
+        if status == 0:
+            print(f"Send `{msg}` to topic `{topic}`")
+        else:
+            print(f"Failed to send message to topic {topic}")
+       
+
+if __name__ == '__main__':
+    run()
+
+# while True:
+#   #Read ambient temperature and relative humidity and print them to terminal
+#   MQTT_MSG=json.dumps({"temperature": dht20.get_temperature(), "humidity": dht20.get_humidity()})
   
-  print("temperature::%f C"%dht20.get_temperature())
-  print("humidity::%f RH"%dht20.get_humidity())
-  publish.single(MQTT_PATH, MQTT_MSG , hostname=MQTT_HOST)
+#   print("temperature::%f C"%dht20.get_temperature())
+#   print("humidity::%f RH"%dht20.get_humidity())
+#   publish.single(MQTT_PATH, MQTT_MSG , hostname=MQTT_HOST)
  
 
  
-  time.sleep(30)
+#   time.sleep(30)
