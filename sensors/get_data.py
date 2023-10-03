@@ -42,7 +42,7 @@ load_dotenv()
 config = dotenv_values(".env") 
 
 MQTT_HOST = config['MQTT_HOST']
-MQTT_PORT = config['MQTT_PORT']
+MQTT_PORT = int(config['MQTT_PORT'])
 MQTT_CLIENT = config['MQTT_CLIENT']
 MQTT_TOPIC = config['MQTT_TOPIC']
 MQTT_SUBTOPIC = config['MQTT_SUBTOPIC']
@@ -73,15 +73,15 @@ def run():
 
 def publish(client):
     while True:
-        time.sleep(30)
         MQTT_MSG=json.dumps({"temperature": dht20.get_temperature(), "humidity": dht20.get_humidity()})
         result = client.publish(MQTT_PATH, MQTT_MSG)
         # result: [0, 1]
         status = result[0]
         if status == 0:
-            print(f"Send `{msg}` to topic `{topic}`")
+            print(f"Send `{MQTT_MSG}` to topic `{MQTT_PATH}`")
         else:
-            print(f"Failed to send message to topic {topic}")
+            print(f"Failed to send message to topic {MQTT_PATH}")
+        time.sleep(30)
        
 
 if __name__ == '__main__':
