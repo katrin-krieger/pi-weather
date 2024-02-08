@@ -1,14 +1,15 @@
 "use client";
 import Image from "next/image";
-import TemperatureTileComponent from "./components/TemperatureTile";
+import TemperatureTileComponent from "./components/TemperatureTile/TemperatureTile";
 import WeatherForecastTileComponent from "./components/WeatherForecastTile";
 import { useState } from "react";
-import * as mqtt from "mqtt";
+import mqtt from "mqtt";
 
 //const locations = ["Draußen", "Wohnzimmer", "Schlafzimmer"];
-const [temp, setTemp] = useState("0");
 
 export default function Home() {
+  const [temp, setTemp] = useState("0");
+
   let client = mqtt.connect("wss://localhost:9001");
   client.on("connect", function () {
     console.log("Connected to MQTT broker");
