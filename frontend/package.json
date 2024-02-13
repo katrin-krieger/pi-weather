@@ -10,7 +10,7 @@
     "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "dependencies": {
-    "mqtt": "^5.3.4",
+    "mqtt": "^5.3.5",
     "next": "14.1.0",
     "next-pwa": "^5.6.0",
     "react": "^18",
