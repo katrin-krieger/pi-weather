@@ -32,3 +32,32 @@ jobs:
           name: playwright-report
           path: frontend/playwright-report/
           retention-days: 30
+      - name: Post failure to a Slack channel
+        id: slack-failure
+        uses: slackapi/slack-github-action@v1.25.0
+        if: ${{ job.status != 'success' }}
+        with:
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
+          channel-id: ${{ vars.SLACK_CHANNEL_ID }}
+          # For posting a simple plain text message
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "accessory": {
+            				"type": "image",
+            				"image_url": "https://cdn-icons-png.flaticon.com/512/6659/6659895.png",
+            				"alt_text": "Failed"
+            			},
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub action build result on *${{github.event.repository.name}}*:\n ${{ job.status }}\n\n<${{ github.event.pull_request.html_url || github.event.head_commit.url }}|View commit>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
