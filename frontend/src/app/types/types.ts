@@ -2,6 +2,7 @@ type MqttRoomMessage = {
   room: string;
   temperature: number;
   humidity: number;
+  timestamp: string;
 };
 
 type PayloadMessage = {

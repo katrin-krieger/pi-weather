@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import mqtt, { MqttClient } from "mqtt";
 
 const setting = {
-  url: "ws://localhost:8883",
+  url: "ws://192.168.178.31:1883",
   config: {
-    username: "",
-    password: "",
-    port: 8883,
+    username: "macbook",
+    password: "discomqtt",
+    port: 8080,
   },
 };
 

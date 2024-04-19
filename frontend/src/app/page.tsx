@@ -17,7 +17,6 @@ export default function Home() {
 
   useEffect(() => {
     const p: PayloadMessage = payload as PayloadMessage;
-    console.log(p);
     if (p.message) {
       const newMessage: MqttRoomMessage = JSON.parse(p.message);
       const existingRoom = rooms.find((room) => room.room === newMessage.room);
