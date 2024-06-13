@@ -4,6 +4,7 @@ import TemperatureTileComponent from "./components/TemperatureTile/TemperatureTi
 import WeatherForecastTileComponent from "./components/WeatherForecastTile";
 import { useEffect, useState } from "react";
 import useMqtt from "./hooks/useMqtt";
+import styles from "./ui/components.module.css";
 
 export default function Home() {
   const [rooms, setRooms] = useState<MqttRoomMessage[]>([]); // Update the type of rooms state
@@ -41,8 +42,27 @@ export default function Home() {
 
   return (
     <>
+      <header>
+        <h1>pi-weather</h1>
+      </header>
       <main>
-        <div className="bg-black">
+        <div className={styles.container}>
+          <div className={styles.section}>
+            <h2>ROOMS</h2>
+            {rooms.map((r) => (
+              <TemperatureTileComponent
+                temperature={r.temperature}
+                location={r.room}
+                humidity={r.humidity}
+                key={r.room}
+              />
+            ))}
+          </div>
+          <div className={styles.section}>
+            <h2>FORECAST</h2>
+          </div>
+        </div>
+        {/*} <div className="bg-black">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             {/*    <div className="mx-auto max-w-2xl sm:text-left">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -51,7 +71,7 @@ export default function Home() {
               <p className="mt-6 text-lg leading-8 text-gray-600">
                 A fine day with hints of rain and a late night with clouds.
               </p>
-  </div>*/}
+  </div>
             <div className="container mx-auto mt-16 max-w-2xl rounded-3xl sm:mt-20 lg:mx-0  lg:max-w-none">
               <div className="row flex flex-col sm:flex-row -mt-2 p-2 lg:mt-0 lg:w-full">
                 {isLoading ? (
@@ -129,11 +149,9 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div>*/}
       </main>
-      <footer className="bg-black text-center text-gray-700">
-        {/*Last updated: {new Date().toString}*/}
-      </footer>
+      <footer>Last updated: 2024-06-13</footer>
     </>
   );
 }
