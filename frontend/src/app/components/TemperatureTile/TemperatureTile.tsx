@@ -1,6 +1,7 @@
 import React from "react";
 import { FaThermometerHalf } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
+import styles from "../../ui/components.module.css";
 
 interface TemperatureTileProps {
   temperature: number;
@@ -14,29 +15,19 @@ const TemperatureTileComponent: React.FC<TemperatureTileProps> = ({
   location,
 }) => {
   return (
-    <div className="col w-full">
-      <div className="card bg-black shadow rounded p-4 m-2 flex flex-col items-center h-full mb-0">
-        <div className="p-16">
+    <div className="temperaturetile">
+      <div className={styles.roomcontainer}>
+        <div>
           <FaThermometerHalf />
-          <span className="text-6xl font-bold tracking-tight text-gray-400">
-            {temperature}
-          </span>
-          <span className="text-sm font-semibold leading-6 tracking-wide text-gray-500">
-            °C
-          </span>
+          <span className={styles.measurement}>{temperature}</span>
+          <span>°C</span>
         </div>
-        <div className="p-16">
+        <div>
           <WiHumidity />
-          <span className="text-6xl font-bold tracking-tight text-gray-400">
-            {humidity}
-          </span>
-          <span className="text-sm font-semibold leading-6 tracking-wide text-gray-500">
-            %
-          </span>
+          <span className={styles.measurement}>{humidity}</span>
+          <span>%</span>
         </div>
-        <h4 className="text-lg mb-0 tracking-tight text-gray-500">
-          {location}
-        </h4>
+        <h4 className={styles.location}>{location}</h4>
       </div>
     </div>
   );
