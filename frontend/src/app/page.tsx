@@ -10,9 +10,11 @@ export default function Home() {
   const [rooms, setRooms] = useState<MqttRoomMessage[]>([]); // Update the type of rooms state
   const { mqttSubscribe, isConnected, payload } = useMqtt();
   const [isLoading, setIsLoading] = useState(true);
-  let now = new Date(Date.now()).toISOString();
+
+  const [now, setNow] = useState("");
 
   useEffect(() => {
+    setNow(new Date(Date.now()).toISOString());
     if (isConnected) {
       mqttSubscribe("room/#");
     }
@@ -58,6 +60,7 @@ export default function Home() {
                   location={r.room}
                   humidity={r.humidity}
                   key={r.room}
+                  timestamp={r.timestamp}
                 />
               ))}
             </div>

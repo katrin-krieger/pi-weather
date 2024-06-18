@@ -32,11 +32,11 @@ a{
 
 header {
   text-align: right;
-  margin: 2em;
+  margin: 1em;
 }
 
 main{
-  padding-bottom: 50px;
+  padding-bottom: 3em;
   flex: 1;
 }
 
@@ -44,7 +44,11 @@ footer {
  color: var(--textSoft);
  font-size: 0.7em;
  text-align: center;
- height:50px;
- margin-top: -50px;
+ height:3em;
+ margin-top: -3em;
+}
+
+h1 {
+  font-size: 1.2em;
 }
 

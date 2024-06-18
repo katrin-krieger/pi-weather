@@ -12,7 +12,7 @@
 .section{
   flex: 1;
   background-color: var(--bgSoft);
-  margin: 20px;
+  margin: 2em;
   color: var(--textSoft);
   padding: 2em;
   display: flex;
@@ -20,23 +20,34 @@
 }
 .section h2 {
   margin-bottom: 1em;
+  font-size:.9em;
 }
 .roomssection {
   display: flex;
-  flex-direction: row;
-  flex: 3
+  flex-flow: row wrap;
 }
 
 .roomcontainer{
-  padding: 16px;
+  padding: 1.2em;
   background-color: var(--bg);
   height: 100%;
   min-height: 100%;
   width: 30%;
+  flex: 3
+}
+
+@media all and (max-width: 500px) {
+  .roomssection {
+    flex-direction: column;
+  }
+
+  .roomcontainer {
+    width: auto;
+  }
 }
 
 .measurement {
-  font-size: 2em;
+  font-size: 1.8em;
   padding: 0 0.5em;
   font-weight: 600;
 }
@@ -47,7 +58,14 @@
 }
 
 .location {
-  padding-top: 20px;
+  padding-top: 2em;
   text-transform: uppercase;
-  color: var(--textSoft)
+  color: var(--textSoft);
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.infoicon {
+  font-size: 1.2em;
 }
