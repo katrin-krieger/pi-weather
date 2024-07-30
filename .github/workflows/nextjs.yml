@@ -77,9 +77,14 @@ jobs:
           npm ci
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Install zip
+        uses: montudor/action-zip@v1
+      - name: Zip output
+        run: zip -qq -r piweather-latest.zip *
+        working-directory: out/
+      - uses: actions/upload-artifact@v4
         with:
-          path: ./out
+          name: piweather-latest
+          path: out/piweather-latest.zip
 
   
