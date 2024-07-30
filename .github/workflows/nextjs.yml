@@ -66,7 +66,7 @@ jobs:
         uses: montudor/action-zip@v1
       - name: Zip output
         run: zip -qq -r piweather-latest.zip *
-        working-directory: frontend/export/
+        working-directory: frontend/out/
       - uses: actions/upload-artifact@v4
         with:
           name: piweather-latest
