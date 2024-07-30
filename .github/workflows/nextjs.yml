@@ -59,7 +59,9 @@ jobs:
           cd frontend
           npm ci
       - name: Build with Next.js
-        run: npx --no-install next build
+        run: |
+          cd frontend
+          npx --no-install next build
       - name: Install zip
         uses: montudor/action-zip@v1
       - name: Zip output
