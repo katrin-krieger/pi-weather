@@ -5,6 +5,11 @@
 name: Deploy Next.js site to raspi
 
 on:
+  workflow_run:
+    workflows: ["Playwright Tests"]
+    branches: [main]
+    types: 
+      - completed
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
