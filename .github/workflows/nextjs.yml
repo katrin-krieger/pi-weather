@@ -5,6 +5,8 @@
 name: Deploy Next.js site to raspi
 
 on:
+  schedule:
+    - cron: "0 8 * * 0"   #
   workflow_run:
     workflows: ["Playwright Tests"]
     branches: [main]
