@@ -2,7 +2,7 @@
 #
 # To get started with Next.js see: https://nextjs.org/docs/getting-started
 #
-name: Deploy Next.js site to raspi
+name: Create release
 
 on:
   schedule:
@@ -77,7 +77,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "frontend/out/piweather-latest.zip"
-          tags: "piweather:${{ steps.version.outputs.version }}"
+          # tags: "piweather:${{ steps.version.outputs.version }}"
           commit: ${{ github.ref }}
 
   
