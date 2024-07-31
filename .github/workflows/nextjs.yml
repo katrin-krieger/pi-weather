@@ -67,9 +67,16 @@ jobs:
       - name: Zip output
         run: zip -qq -r piweather-latest.zip *
         working-directory: frontend/out/
-      - uses: actions/upload-artifact@v4
+      - name: Get next version
+        uses: reecetech/version-increment@2024.4.3
+        id: version
         with:
-          name: piweather-latest
-          path: frontend/out/piweather-latest.zip
+          scheme: semver
+          increment: patch
+      - name: Upload release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "frontend/out/piweather-latest.zip"
+          tags: "piweather:${{ steps.version.outputs.version }}"
 
   
