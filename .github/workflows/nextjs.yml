@@ -78,5 +78,6 @@ jobs:
         with:
           artifacts: "frontend/out/piweather-latest.zip"
           tags: "piweather:${{ steps.version.outputs.version }}"
+          commit: ${{ github.ref }}
 
   
