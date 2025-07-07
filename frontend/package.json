@@ -19,7 +19,7 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
-    "@playwright/experimental-ct-react": "^1.52.0",
+    "@playwright/experimental-ct-react": "^1.53.2",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^24",
     "@types/react": "^19",
