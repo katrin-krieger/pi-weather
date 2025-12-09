@@ -8,8 +8,7 @@ test("TemperatureTile", async ({ mount }) => {
   const component = await mount(
     <TemperatureTileComponent
       temperature={0}
-      location={"Magdeburg"}
-    ></TemperatureTileComponent>
+      location={"Magdeburg"} humidity={0} timestamp={""}    ></TemperatureTileComponent>
   );
 
   // As with any Playwright test, assert locator text.
